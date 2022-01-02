@@ -21,12 +21,11 @@ The jist of adding packages to Doom, that are not provided by the module system,
 (package! <package-name>)
 #+end_src
 *** org-ref v3
-#+begin_src elisp
+#+begin_src elisp :noweb yes :eval no :tangle packages.el
 (package! org-ref)
 #+end_src
 
-Then configure it in =~/.doom.d/config.el=
-#+begin_src elisp
+#+begin_src elisp :noweb yes :eval no :tangle config.el
 (use-package! org-ref)
 (setq bibtex-completion-bibliography '("~/org/references.bib" "~/org/unread_references.bib")
       bibtex-completion-library-path '("~/org/articles/")
@@ -43,16 +42,16 @@ Then configure it in =~/.doom.d/config.el=
       (lambda (fpath)
         (call-process "open" nil 0 nil fpath)))
 #+end_src
+
 *** org-roam-ref
 In =~/doom.d/packages.el=
-#+begin_src elisp
+#+begin_src elisp :noweb yes :eval no :tangle packages.el
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 #+end_src
 
 
-Then configure it in =~/.doom.d/config.el=
-#+begin_src elisp
+#+begin_src elisp :noweb yes :eval no :tangle config.el
 (use-package! org-roam-bibtex
   :after org-roam
   :config
