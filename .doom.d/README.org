@@ -1,0 +1,79 @@
+
+* Setup
+** Doom modules
+In init.el comment out
+- pdf
+** Keybindings
+#+begin_src elisp
+(global-set-key (kbd "C-z") 'undo-tree-undo)
+(global-set-key (kbd "M-z") 'undo-tree-redo)
+
+(global-set-key (kbd "C-x C-z") 'comment-or-uncomment-region)
+#+end_src
+** Installing packages not in doom
+To read the manual run
+#+begin_src elisp
+(doom/help)
+#+end_src
+
+The jist of adding packages to Doom, that are not provided by the module system, is to add them to the =package.el= file like so:
+#+begin_src elisp
+(package! <package-name>)
+#+end_src
+*** org-ref v3
+#+begin_src elisp
+(package! org-ref)
+#+end_src
+
+Then configure it in =~/.doom.d/config.el=
+#+begin_src elisp
+(use-package! org-ref)
+(setq bibtex-completion-bibliography '("~/org/references.bib" "~/org/unread_references.bib")
+      bibtex-completion-library-path '("~/org/articles/")
+      bibtex-completion-notes-path "~/org/Notes/Lit/"
+      bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"
+      bibtex-completion-additional-search-fields '(keywords)
+      bibtex-completion-display-formats
+      '((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
+        (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
+        (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+        (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+        (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
+      bibtex-completion-pdf-open-function
+      (lambda (fpath)
+        (call-process "open" nil 0 nil fpath)))
+#+end_src
+*** org-roam-ref
+In =~/doom.d/packages.el=
+#+begin_src elisp
+(package! org-roam-bibtex
+  :recipe (:host github :repo "org-roam/org-roam-bibtex"))
+#+end_src
+
+
+Then configure it in =~/.doom.d/config.el=
+#+begin_src elisp
+(use-package! org-roam-bibtex
+  :after org-roam
+  :config
+  (require 'org-ref))
+#+end_src
+*** Setting up org-fc
+:LOGBOOK:
+CLOCK: [2022-01-02 Sun 15:04]
+:END:
+*NB:* For some reason reason when we pull the package =straight= puts all the =.el= files in one folder, in my case =/home/user/.emacs.d/.local/straight/build-27.2.50/org-fc/=. This is an issue here because the function =org-fc-awk-index-paths= looks for the source file =org-fc/awk/utils.awk=. To get around this clone [[https://github.com/l3kn/org-fc][the org-fc repo]] and copy the =org-fc/awk= folder to =/home/user/.emacs.d/.local/straight/build-27.2.50/org-fc/=
+
+#+begin_src elisp :noweb yes :eval no :tangle packages.el
+(package! org-fc
+  :recipe (:host nil
+           :repo "https://github.com/l3kn/org-fc.git"))
+#+end_src
+
+#+begin_src elisp :noweb yes :eval no :tangle config.el
+(use-package! org-fc
+   :custom (org-fc-directories '("~/org/Notes/Lit/"))
+   :config
+   (require 'org-fc-hydra)
+   (setq org-fc-review-history-file "~/org/org-fc-reviews.tsv"))
+#+end_src

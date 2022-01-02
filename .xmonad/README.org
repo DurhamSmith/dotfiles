@@ -1,0 +1,84 @@
+#+TITLE: XMonad Config
+#+PROPERTY: header-args :tangle xmonad.hs
+#+STARTUP: showeverything
+#+AUTHOR: Durham Smith
+
+* Table Of Contents :toc:
+- [[#about-this-config][About This Config]]
+- [[#imports][Imports]]
+- [[#variables][Variables]]
+
+* About This Config
+Xmonad is a dynamically tiling X11 window manager that is written and configured in Haskell.
+- XMonad Official Website: [[https://xmonad.org][https://xmonad.org]]
+- Haskell Official Website: https://haskell.org
+
+This is the xmonad configuration borrows heavily from that of Derek Taylor (DistroTube)
+- His YouTube: [[http://www.youtube.com/c/DistroTube][http://www.youtube.com/c/DistroTube]]
+- His GitLab:  [[http://www.gitlab.com/dwt1/][http://www.gitlab.com/dwt1/]]
+
+Keep in mind, that my configs are purposely bloated with examples of what you can do with xmonad. It is written more as a study guide rather than a config that you should download and use.
+
+NOTE: You will also need my xmobar config, which is located here: https://gitlab.com/dwt1/dotfiles/-/tree/master/.config/xmobar
+
+* Imports
+
+#+begin_src haskell
+import XMonad
+import Data.Monoid
+import System.Exit
+
+import qualified XMonad.StackSet as W
+import qualified Data.Map        as M
+import Graphics.X11.ExtraTypes.XF86
+import XMonad.Actions.GridSelect
+
+    -- Hooks
+import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
+#+end_src
+
+
+* Variables
+It's nice to assign values to stuff that you will use more than once in the config. Setting values for things like font, terminal and editor means you only have to change the value here to make changes globally.
+
+#+BEGIN_SRC haskell
+myFont :: String
+myFont = "xft:SauceCodePro Nerd Font Mono:regular:size=9:antialias=true:hinting=true"
+
+myModMask :: KeyMask
+myModMask = mod4Mask        -- Sets modkey to super/windows key
+
+myTerminal :: String
+myTerminal = "gnome-terminal"    -- Sets default terminal
+
+myBrowser :: String
+myBrowser = "firefox"  -- Sets qutebrowser as browser
+
+myEmacs :: String
+myEmacs = "emacsclient -c -a 'emacs' "  -- Makes emacs keybindings easier to type
+
+myEditor :: String
+myEditor = "emacsclient -c -a 'emacs' "  -- Sets emacs as editor
+-- myEditor = myTerminal ++ " -e vim "    -- Sets vim as editor
+
+myBorderWidth :: Dimension
+myBorderWidth = 2           -- Sets border width for windows
+
+myNormColor :: String       -- Border color of normal windows
+myNormColor   = colorBack   -- This variable is imported from Colors.THEME
+
+myFocusColor :: String      -- Border color of focused windows
+myFocusColor  = color15     -- This variable is imported from Colors.THEME
+
+windowCount :: X (Maybe String)
+windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+
+-- Whether focus follows the mouse pointer.
+myFocusFollowsMouse :: Bool
+myFocusFollowsMouse = True
+
+-- Whether clicking on a window to focus also passes the click to the window
+myClickJustFocuses :: Bool
+myClickJustFocuses = False
+
+#+END_SRC
