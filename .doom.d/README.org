@@ -58,9 +58,6 @@ In =~/doom.d/packages.el=
   (require 'org-ref))
 #+end_src
 *** Setting up org-fc
-:LOGBOOK:
-CLOCK: [2022-01-02 Sun 15:04]
-:END:
 *NB:* For some reason reason when we pull the package =straight= puts all the =.el= files in one folder, in my case =/home/user/.emacs.d/.local/straight/build-27.2.50/org-fc/=. This is an issue here because the function =org-fc-awk-index-paths= looks for the source file =org-fc/awk/utils.awk=. To get around this clone [[https://github.com/l3kn/org-fc][the org-fc repo]] and copy the =org-fc/awk= folder to =/home/user/.emacs.d/.local/straight/build-27.2.50/org-fc/=
 
 #+begin_src elisp :noweb yes :eval no :tangle packages.el
