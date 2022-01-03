@@ -20,6 +20,17 @@ The jist of adding packages to Doom, that are not provided by the module system,
 #+begin_src elisp
 (package! <package-name>)
 #+end_src
+*** Org Agenda
+#+begin_src elisp :noweb yes :eval no :tangle config.el
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        ;               org-mode              ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq
+ org-agenda-files (list
+                   (concat org-directory "goals/")))
+#+end_src
+
+
 *** org-ref v3
 #+begin_src elisp :noweb yes :eval no :tangle packages.el
 (package! org-ref)
@@ -42,7 +53,6 @@ The jist of adding packages to Doom, that are not provided by the module system,
       (lambda (fpath)
         (call-process "open" nil 0 nil fpath)))
 #+end_src
-
 *** org-roam-ref
 In =~/doom.d/packages.el=
 #+begin_src elisp :noweb yes :eval no :tangle packages.el
