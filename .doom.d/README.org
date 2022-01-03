@@ -20,6 +20,8 @@ The jist of adding packages to Doom, that are not provided by the module system,
 #+begin_src elisp
 (package! <package-name>)
 #+end_src
+
+** Package Configuration
 *** Org Agenda
 #+begin_src elisp :noweb yes :eval no :tangle config.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -30,7 +32,16 @@ The jist of adding packages to Doom, that are not provided by the module system,
                    (concat org-directory "goals/")))
 #+end_src
 
-
+*** org-download
+#+begin_src elisp :noweb yes :eval no :tangle config.el
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        ;             org-download            ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(after! org-download
+  (setq org-download-method 'directory
+        org-download-image-dir "~/org/images/"
+        org-download-screenshot-method "gnome-screenshot -a -f %s"))
+#+end_src
 *** org-ref v3
 #+begin_src elisp :noweb yes :eval no :tangle packages.el
 (package! org-ref)
