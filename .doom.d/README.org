@@ -89,7 +89,7 @@ In =~/doom.d/packages.el=
 
 #+begin_src elisp :noweb yes :eval no :tangle config.el
 (use-package! org-fc
-   :custom (org-fc-directories '("~/org/Notes/Lit/") ("~/org/Notes/Evergreen/"))
+   :custom (org-fc-directories '("~/org/Notes/Lit/" "~/org/Notes/Evergreen/"))
    :config
    (require 'org-fc-hydra)
    (setq org-fc-review-history-file "~/org/org-fc-reviews.tsv"))
