@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: cp
+# key: cp
+# --
+\vb{$1} \cp \vb{$0}

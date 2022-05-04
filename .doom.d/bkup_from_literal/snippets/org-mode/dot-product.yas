@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: dot-product
+# key: dp
+# --
+\vb{$1} \vdot \vb{$0}

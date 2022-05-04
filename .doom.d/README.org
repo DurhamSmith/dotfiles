@@ -103,3 +103,13 @@ We want to always use some packages in latex files without always having to incl
 
 (add-to-list 'org-latex-packages-alist '("" "physics" t))
 #+end_src
+*** Setup RSS
+
+#+begin_src elisp :noweb yes :eval no :tangle config.el
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        ;             Latex RSS               ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(after! elfeed-org
+  (setq rmh-elfeed-org-files (list "~/org/rss.org")))
+#+end_src

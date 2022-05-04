@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: vu
+# key: vu
+# --
+\vu{$0}
